@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diploma_FaceDetectionAndAuthentication", "Diploma_FaceDetectionAndAuthentication\Diploma_FaceDetectionAndAuthentication.csproj", "{DBCCD8CA-A8C3-4B75-BB06-797D9B094A37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBCCD8CA-A8C3-4B75-BB06-797D9B094A37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBCCD8CA-A8C3-4B75-BB06-797D9B094A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBCCD8CA-A8C3-4B75-BB06-797D9B094A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBCCD8CA-A8C3-4B75-BB06-797D9B094A37}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22E10B6F-DA6A-4FEB-A52E-5C717CD59543}
+	EndGlobalSection
+EndGlobal
