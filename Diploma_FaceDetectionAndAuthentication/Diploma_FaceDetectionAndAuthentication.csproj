@@ -125,6 +125,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="ProjectManager.cs" />
     <Compile Include="Services\ChildObserver.cs" />
     <Compile Include="Services\DependenciesCollection.cs" />
@@ -147,9 +148,15 @@
     <Compile Include="Services\ReferenceKey.cs" />
     <Compile Include="Services\SubscribeUtils.cs" />
     <Compile Include="Services\WeakReference.cs" />
+    <Compile Include="ViewModels\AuthenticationViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
+    <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="Views\CommonView.xaml.cs">
       <DependentUpon>CommonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginCredentialsView.xaml.cs">
+      <DependentUpon>LoginCredentialsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainMenuView.xaml.cs">
       <DependentUpon>MainMenuView.xaml</DependentUpon>
@@ -167,6 +174,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CommonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginCredentialsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -290,9 +301,7 @@
     <Resource Include="Images\key-icon.png" />
     <Resource Include="Images\user-icon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Baseclass.Contrib.Nuget.Output.1.0.2\build\net40\Baseclass.Contrib.Nuget.Output.targets" Condition="Exists('..\packages\Baseclass.Contrib.Nuget.Output.1.0.2\build\net40\Baseclass.Contrib.Nuget.Output.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

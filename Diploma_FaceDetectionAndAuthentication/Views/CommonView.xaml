@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Diploma_FaceDetectionAndAuthentication.Views"
         xmlns:converter="clr-namespace:Diploma_FaceDetectionAndAuthentication.Converter"
+        xmlns:vm="clr-namespace:Diploma_FaceDetectionAndAuthentication.ViewModels"
         mc:Ignorable="d"
         Title="FaceSEC"
         MinHeight="450" MinWidth="800"
@@ -16,6 +17,16 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
 
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+            <local:LoginCredentialsView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
+            
+        </DataTemplate>
+    </Window.Resources>
+    
     <Border CornerRadius="12">
         <Border.Background>
             <ImageBrush ImageSource="/Images/back-image.jpg"
@@ -86,7 +97,12 @@
                             FontWeight="Bold"/>
                 </Grid>
 
-                <local:MainMenuView Grid.Row="2" Visibility="{Binding IsMainMenu, Converter={converter:BoolToVisibilityConverter}}"/>
+                <local:MainMenuView Grid.Row="2"
+                                    Visibility="{Binding IsMainMenu, Converter={converter:BoolToVisibilityConverter}}"
+                                    DataContext="{Binding}"/>
+
+                <ContentPresenter Grid.Row="2"
+                                  Content="{Binding SelectedViewModel}"/>
             </Grid>
         </Border>
     </Border>
