@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Diploma_FaceDetectionAndAuthentication.Views"
+        xmlns:converter="clr-namespace:Diploma_FaceDetectionAndAuthentication.Converter"
         mc:Ignorable="d"
         Title="FaceSEC"
         MinHeight="450" MinWidth="800"
@@ -18,7 +19,7 @@
     <Border CornerRadius="12">
         <Border.Background>
             <ImageBrush ImageSource="/Images/back-image.jpg"
-                        Stretch="None"/>
+                        Stretch="Fill"/>
         </Border.Background>
 
         <Border CornerRadius="10"
@@ -85,14 +86,7 @@
                             FontWeight="Bold"/>
                 </Grid>
 
-                <StackPanel Width="250"
-                            Grid.Row="2"
-                            Orientation="Vertical"
-                            Margin="0 35 0 0">
-                    <Image Source="/Images/logo.png"
-                           Width="250"
-                           Height="250"/>
-                </StackPanel>
+                <local:MainMenuView Grid.Row="2" Visibility="{Binding IsMainMenu, Converter={converter:BoolToVisibilityConverter}}"/>
             </Grid>
         </Border>
     </Border>

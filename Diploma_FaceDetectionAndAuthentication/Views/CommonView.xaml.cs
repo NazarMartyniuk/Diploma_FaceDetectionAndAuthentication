@@ -19,9 +19,12 @@ namespace Diploma_FaceDetectionAndAuthentication.Views
     /// </summary>
     public partial class CommonView : Window
     {
+        private ProjectManager _ProjectManager;
         public CommonView()
         {
             InitializeComponent();
+            _ProjectManager = new ProjectManager();
+            DataContext = _ProjectManager;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
