@@ -23,7 +23,11 @@
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
-            
+            <local:RegisterCredentialsView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:RegisterFaceViewModel}">
+            <local:RegisterFaceView/>
         </DataTemplate>
     </Window.Resources>
     
@@ -103,6 +107,9 @@
 
                 <ContentPresenter Grid.Row="2"
                                   Content="{Binding SelectedViewModel}"/>
+
+                <ContentPresenter Grid.Row="2"
+                                  Content="{Binding RegisterFaceViewModel}"/>
             </Grid>
         </Border>
     </Border>

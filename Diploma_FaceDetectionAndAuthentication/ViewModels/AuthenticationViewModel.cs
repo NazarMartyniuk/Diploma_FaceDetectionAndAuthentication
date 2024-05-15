@@ -11,9 +11,9 @@ namespace Diploma_FaceDetectionAndAuthentication.ViewModels
 {
     public abstract class AuthenticationViewModel : NotifyPropertyChanged
     {
-        private readonly ProjectManager _ProjectManager;
+        protected readonly ProjectManager _ProjectManager;
 
-        private string _Email;
+        private string _Email = "";
         public string Email
         {
             get { return this.GetProperty(_Email); }

@@ -22,7 +22,7 @@
 
         <Button x:Name="btnLogin"
                 BorderThickness="0"
-                Content="LOGIN"
+                Content="LOG IN"
                 Foreground="White"
                 FontSize="12"
                 FontFamily="Montserrat"

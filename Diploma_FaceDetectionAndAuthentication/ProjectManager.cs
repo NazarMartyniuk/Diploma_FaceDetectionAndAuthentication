@@ -31,6 +31,19 @@ namespace Diploma_FaceDetectionAndAuthentication
             }
         }
 
+        private RegisterFaceViewModel _RegisterFaceViewModel = null;
+        public RegisterFaceViewModel RegisterFaceViewModel
+        {
+            get { return this.GetProperty(_RegisterFaceViewModel); }
+            set
+            {
+                SelectedViewModel = null;
+                IsMainMenu = value == null;
+
+                this.SetProperty(ref _RegisterFaceViewModel, value);
+            }
+        }
+
         private ICommand _LoginButtonCommand;
         public ICommand LoginButtonCommand
         {
