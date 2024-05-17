@@ -15,7 +15,7 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        MouseDown="Window_MouseDown">
+        MouseDown="Window_MouseDown" Icon="/Images/logo.png">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:LoginViewModel}">
@@ -24,10 +24,6 @@
 
         <DataTemplate DataType="{x:Type vm:RegisterViewModel}">
             <local:RegisterCredentialsView/>
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vm:RegisterFaceViewModel}">
-            <local:RegisterFaceView/>
         </DataTemplate>
     </Window.Resources>
     

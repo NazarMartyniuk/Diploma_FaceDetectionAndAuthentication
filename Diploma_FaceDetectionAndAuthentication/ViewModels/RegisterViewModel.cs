@@ -1,16 +1,20 @@
 ﻿using Diploma_FaceDetectionAndAuthentication.Models;
 using Diploma_FaceDetectionAndAuthentication.Services;
+using Diploma_FaceDetectionAndAuthentication.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Management;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 
 namespace Diploma_FaceDetectionAndAuthentication.ViewModels
 {
@@ -132,19 +136,37 @@ namespace Diploma_FaceDetectionAndAuthentication.ViewModels
                 }
             }
 
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+            var pbkdf2 = new Rfc2898DeriveBytes(Password, salt, 100000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            string passwordHash = Convert.ToBase64String(hashBytes);
+
             User user = new User()
             {
                 FirstName = FirstName,
                 LastName = LastName,
                 Email = Email,
-                Password = Password,
+                Password = passwordHash,
                 BirthDate = BirthDate,
                 PhoneNumber = PhoneNumber,
                 City = City
             };
 
             RegisterFaceViewModel viewModel = new RegisterFaceViewModel(user);
-            _ProjectManager.RegisterFaceViewModel = viewModel;
+            var authWindow = new RegisterFaceWindowView(viewModel);
+
+            if (authWindow.ShowDialog() == true)
+            {
+                this._ProjectManager.RegisterFaceViewModel = null;
+            }
+            authWindow.FAuth.Dispose();
         }
 
         public RegisterViewModel(ProjectManager projectManager) : base(projectManager)

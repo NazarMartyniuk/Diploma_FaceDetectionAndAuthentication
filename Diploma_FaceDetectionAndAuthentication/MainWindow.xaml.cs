@@ -42,7 +42,7 @@ namespace Diploma_FaceDetectionAndAuthentication
             ((System.ComponentModel.ISupportInitialize)imgBox).BeginInit();
 
             imgBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            imgBox.Location = new System.Drawing.Point(12, 12);
+            //imgBox.Location = new System.Drawing.Point(12, 12);
             imgBox.Name = "imageBoxFrameGrabber";
             imgBox.Size = new System.Drawing.Size(320, 240);
             imgBox.TabIndex = 4;

@@ -20,7 +20,7 @@ namespace Diploma_FaceDetectionAndAuthentication.ViewModels
             set { this.SetProperty(ref _Email, value); }
         }
 
-        private string _Password;
+        private string _Password = "";
         public string Password
         {
             get { return this.GetProperty(_Password); }
