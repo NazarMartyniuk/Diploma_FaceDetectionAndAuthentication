@@ -258,7 +258,6 @@
     <Compile Include="ProjectManager.cs" />
     <Compile Include="Services\ChildObserver.cs" />
     <Compile Include="Services\DependenciesCollection.cs" />
-    <Compile Include="Services\EigenObjectRecognizer.cs" />
     <Compile Include="Services\EmptyDisposable.cs" />
     <Compile Include="Services\EventPatternWeakSubscription.cs" />
     <Compile Include="Services\FacialAuth.cs" />
@@ -280,10 +279,13 @@
     <Compile Include="Services\SubscribeUtils.cs" />
     <Compile Include="Services\WeakReference.cs" />
     <Compile Include="ViewModels\AuthenticationViewModel.cs" />
+    <Compile Include="ViewModels\AuthorizedUserViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\RegisterFaceViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="Views\AuthorizedUserView.xaml.cs">
+      <DependentUpon>AuthorizedUserView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CommonView.xaml.cs">
       <DependentUpon>CommonView.xaml</DependentUpon>
     </Compile>
@@ -314,6 +316,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AuthorizedUserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CommonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

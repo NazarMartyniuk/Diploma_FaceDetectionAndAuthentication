@@ -87,7 +87,7 @@ namespace Diploma_FaceDetectionAndAuthentication.ViewModels
 
                         if (auth.ShowDialog() == true)
                         {
-                            
+                            this._ProjectManager.AuthorizedUserViewModel = new AuthorizedUserViewModel(user, _ProjectManager);
                         }
                         auth.FAuth.Dispose();
                     }

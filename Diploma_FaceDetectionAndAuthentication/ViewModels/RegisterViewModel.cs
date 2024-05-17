@@ -164,7 +164,7 @@ namespace Diploma_FaceDetectionAndAuthentication.ViewModels
 
             if (authWindow.ShowDialog() == true)
             {
-                this._ProjectManager.RegisterFaceViewModel = null;
+                this._ProjectManager.SelectedViewModel = null;
             }
             authWindow.FAuth.Dispose();
         }

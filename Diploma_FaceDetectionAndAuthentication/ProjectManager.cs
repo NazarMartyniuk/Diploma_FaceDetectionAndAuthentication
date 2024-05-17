@@ -31,16 +31,16 @@ namespace Diploma_FaceDetectionAndAuthentication
             }
         }
 
-        private RegisterFaceViewModel _RegisterFaceViewModel = null;
-        public RegisterFaceViewModel RegisterFaceViewModel
+        private AuthorizedUserViewModel _AuthorizedUserViewModel = null;
+        public AuthorizedUserViewModel AuthorizedUserViewModel
         {
-            get { return this.GetProperty(_RegisterFaceViewModel); }
+            get { return this.GetProperty(_AuthorizedUserViewModel); }
             set
             {
                 SelectedViewModel = null;
                 IsMainMenu = value == null;
 
-                this.SetProperty(ref _RegisterFaceViewModel, value);
+                this.SetProperty(ref _AuthorizedUserViewModel, value);
             }
         }
 
