@@ -258,6 +258,7 @@
     <Compile Include="ProjectManager.cs" />
     <Compile Include="Services\ChildObserver.cs" />
     <Compile Include="Services\DependenciesCollection.cs" />
+    <Compile Include="Services\EigenObjectRecognizer.cs" />
     <Compile Include="Services\EmptyDisposable.cs" />
     <Compile Include="Services\EventPatternWeakSubscription.cs" />
     <Compile Include="Services\FacialAuth.cs" />
@@ -289,6 +290,9 @@
     <Compile Include="Views\LoginCredentialsView.xaml.cs">
       <DependentUpon>LoginCredentialsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LoginFaceWindowView.xaml.cs">
+      <DependentUpon>LoginFaceWindowView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainMenuView.xaml.cs">
       <DependentUpon>MainMenuView.xaml</DependentUpon>
     </Compile>
@@ -315,6 +319,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginCredentialsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginFaceWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

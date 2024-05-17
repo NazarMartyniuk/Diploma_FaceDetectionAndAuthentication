@@ -16,6 +16,8 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
 using Diploma_FaceDetectionAndAuthentication.Models;
+using System.Data;
+using System.Collections;
 
 namespace Diploma_FaceDetectionAndAuthentication.Services
 {
@@ -23,6 +25,7 @@ namespace Diploma_FaceDetectionAndAuthentication.Services
     {
         public WindowsFormsHost Host { get; set; }
         public bool IsStarted { get; set; }
+        public bool IsAuthenticated { get; set; } = false;
 
         private DispatcherTimer _Timer;
         private Image<Bgr, Byte> _CurrentFrame;
@@ -32,14 +35,13 @@ namespace Diploma_FaceDetectionAndAuthentication.Services
         private Image<Gray, byte> _Gray = null;
         private List<Image<Gray, byte>> _CurrentImages = new List<Image<Gray, byte>>();
         Image<Gray, byte> _TrainedFace = null;
-        private List<string> _NamePersons = new List<string>();
         private bool _IsAuth;
 
         private ImageBox _ImgBox;
         private TextBlock _TxtTip;
         private System.Windows.Controls.Button _StartButton = null;
 
-        public FacialAuth(TextBlock txtTip = null, System.Windows.Controls.Button startButton = null, bool isAuth = true)
+        public FacialAuth(TextBlock txtTip = null, System.Windows.Controls.Button startButton = null, bool isAuth = true, int? id = null)
         {
             _TxtTip = txtTip;
             _StartButton = startButton;
@@ -65,6 +67,30 @@ namespace Diploma_FaceDetectionAndAuthentication.Services
             _Grabber = new Capture();
             _Grabber.QueryFrame();
 
+            if (_IsAuth && id != null)
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["localDb"].ConnectionString))
+                {
+                    string query = "SELECT [Image] FROM [BiometricImage] WHERE [UserId] = @id";
+                    SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                    sqlCommand.Parameters.Add(new SqlParameter("@id", id.Value.ToString()));
+
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+
+                    DataSet dataSet = new DataSet();
+                    sqlDataAdapter.Fill(dataSet);
+
+                    foreach (DataRow row in dataSet.Tables[0].Rows)
+                    {
+                        byte[] myImg = (byte[])row[0];
+                        MemoryStream ms = new MemoryStream(myImg);
+                        ms.Position = 0;
+                        System.Drawing.Image image = System.Drawing.Image.FromStream(ms);
+                        _CurrentImages.Add(new Image<Gray, byte>((Bitmap)image));
+                    }
+                }
+            }
+
             _Timer = new DispatcherTimer();
             _Timer.Interval = TimeSpan.FromMilliseconds(1);
             _Timer.Tick += new EventHandler(FrameGrabber);
@@ -73,7 +99,10 @@ namespace Diploma_FaceDetectionAndAuthentication.Services
 
         private void FrameGrabber(object sender, EventArgs e)
         {
-            _NamePersons.Add("");
+            if (IsAuthenticated)
+            {
+                _Timer.Stop();
+            }
 
             _CurrentFrame = _Grabber.QueryFrame().Resize(320, 240, INTER.CV_INTER_CUBIC);
 
@@ -95,12 +124,32 @@ namespace Diploma_FaceDetectionAndAuthentication.Services
             {
                 if (_TxtTip != null && !IsStarted)
                 {
-                    _TxtTip.Text = "Watch straight to the camera. Move your head";
+                    _TxtTip.Text = "Watch straight to the camera. Don't move your head";
                     _StartButton.IsEnabled = true;
                 }
 
                 _Result = _CurrentFrame.Copy(facesDetected[0][0].rect).Convert<Gray, byte>().Resize(100, 100, INTER.CV_INTER_CUBIC);
                 _CurrentFrame.Draw(facesDetected[0][0].rect, new Bgr(Color.Green), 2);
+
+                if (_IsAuth)
+                {
+                    MCvTermCriteria termCriteria = new MCvTermCriteria(100, 0.1);
+
+                    Emgu.CV.EigenObjectRecognizer recognizer = new EigenObjectRecognizer(
+                        _CurrentImages.ToArray(),
+                        new string[100],
+                        3000,
+                        ref termCriteria);
+
+                    float[] distances = recognizer.GetEigenDistances(_Result);
+                    float maxDistance = distances.Max();
+                    var matching = Array.ConvertAll(distances, distance => 100 * (1 - distance / maxDistance));
+
+                    if (matching.Any(x => x > 70))
+                    {
+                        IsAuthenticated = true;
+                    }
+                }
             }
             else if (!_IsAuth && !IsStarted)
             {
@@ -116,7 +165,7 @@ namespace Diploma_FaceDetectionAndAuthentication.Services
             _CurrentImages.Clear();
 
             int i = 0;
-            while(i < 100)
+            while (i < 100)
             {
                 FrameGrabber(this, null);
 
@@ -176,14 +225,19 @@ namespace Diploma_FaceDetectionAndAuthentication.Services
 
                 for (int j = 0; j < 100; j++)
                 {
-                    byte[] imageData = _CurrentImages[j].Bytes;
+                    System.Drawing.Image img = _CurrentImages[j].ToBitmap();
+                    MemoryStream tmpStream = new MemoryStream();
+                    img.Save(tmpStream, System.Drawing.Imaging.ImageFormat.Png);
+                    tmpStream.Seek(0, SeekOrigin.Begin);
+                    byte[] imageData = new byte[img.Size.Height * img.Height];
+                    tmpStream.Read(imageData, 0, img.Size.Height * img.Height);
 
                     SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["localDb"].ConnectionString);
                     string qry = "INSERT INTO BiometricImage(UserId, Image) VALUES (@id, @image)";
 
                     SqlCommand sqlCommand = new SqlCommand(qry, sqlConnection);
                     sqlCommand.Parameters.Add(new SqlParameter("@id", userId));
-                    sqlCommand.Parameters.Add(new SqlParameter("@image", imageData));
+                    sqlCommand.Parameters.Add(new SqlParameter("@image", (object)imageData));
 
                     sqlConnection.Open();
                     sqlCommand.ExecuteNonQuery();
@@ -201,6 +255,7 @@ namespace Diploma_FaceDetectionAndAuthentication.Services
 
             return false;
         }
+
 
         public void Dispose()
         {

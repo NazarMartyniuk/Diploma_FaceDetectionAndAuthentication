@@ -37,7 +37,6 @@ namespace Diploma_FaceDetectionAndAuthentication.Views
             this.grid1.Children.Add(FAuth.Host);
         }
 
-
         public RegisterFaceWindowView(RegisterFaceViewModel vm)
         {
             InitializeComponent();

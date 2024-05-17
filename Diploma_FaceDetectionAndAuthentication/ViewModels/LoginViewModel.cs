@@ -1,5 +1,6 @@
 ﻿using Diploma_FaceDetectionAndAuthentication.Models;
 using Diploma_FaceDetectionAndAuthentication.Services;
+using Diploma_FaceDetectionAndAuthentication.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -81,6 +82,14 @@ namespace Diploma_FaceDetectionAndAuthentication.ViewModels
                             PhoneNumber = reader["PhoneNumber"].ToString(),
                             City = reader["City"].ToString(),
                         };
+
+                        var auth = new LoginFaceWindowView(user.Id);
+
+                        if (auth.ShowDialog() == true)
+                        {
+                            
+                        }
+                        auth.FAuth.Dispose();
                     }
 
                     db.Close(); 
