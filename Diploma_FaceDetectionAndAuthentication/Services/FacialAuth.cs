@@ -3,8 +3,6 @@ using Emgu.CV;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using Emgu.CV.CvEnum;
 using Emgu.CV.UI;
@@ -17,7 +15,6 @@ using System.Data.SqlClient;
 using System.Configuration;
 using Diploma_FaceDetectionAndAuthentication.Models;
 using System.Data;
-using System.Collections;
 
 namespace Diploma_FaceDetectionAndAuthentication.Services
 {

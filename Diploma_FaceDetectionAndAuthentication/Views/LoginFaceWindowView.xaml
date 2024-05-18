@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Diploma_FaceDetectionAndAuthentication.Views"
         mc:Ignorable="d"
-        Title="LoginFaceWindowView" Height="240" Width="320" Icon="/Images/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Authentication" Height="240" Width="320" Icon="/Images/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Loaded="Grid_Loaded"
           x:Name="grid1">
         
